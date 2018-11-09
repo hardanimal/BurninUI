@@ -3,10 +3,10 @@
 
 from flask import Flask, render_template, request
 import json
-from pymongo import Connection
+from pymongo import MongoClient
 
 databaseName = "topaz_bi"
-connection = Connection()
+connection = MongoClient()
 db = connection[databaseName]
 status_runtime = db['dut_running']
 
