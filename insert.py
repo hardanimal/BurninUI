@@ -3,12 +3,14 @@
 
 import json
 import random
-from pymongo import Connection
+from pymongo import MongoClient
 
+databaseAddress = "127.0.0.1"
 databaseName = "topaz_bi"
-connection = Connection()
+databaseTable = "dut_running"
+connection = MongoClient(databaseAddress, 27017)
 db = connection[databaseName]
-status_runtime = db['dut_running']
+status_runtime = db[databaseTable]
 data_pattern = {
     "_id" : 54,
     "STATUS" : 1,
@@ -576,7 +578,7 @@ def push_test_data(data):
         for j in data["CYCLES7"]:
             j["VCAP"] = round(random.uniform(1,40),2)
             j["TEMP"] = round(random.uniform(1,40),2)
-        status_runtime.insert(data)
+        status_runtime.insert_one(data)
 
 if __name__ == "__main__":
     push_test_data(data_pattern)

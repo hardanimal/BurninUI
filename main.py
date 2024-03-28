@@ -5,10 +5,12 @@ from flask import Flask, render_template, request
 import json
 from pymongo import MongoClient
 
+databaseAddress = "127.0.0.1"
 databaseName = "topaz_bi"
-connection = MongoClient()
+databaseTable = "dut_running"
+connection = MongoClient(databaseAddress, 27017)
 db = connection[databaseName]
-status_runtime = db['dut_running']
+status_runtime = db[databaseTable]
 
 app = Flask(__name__)
 
